@@ -1,4 +1,4 @@
-package eu.saveliev.hautnote
+package eu.saveliev.hautnote.feature_note.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
