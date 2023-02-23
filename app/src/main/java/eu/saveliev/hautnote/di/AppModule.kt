@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import eu.saveliev.hautnote.feature_note.data.data_source.NoteDatabase
 import eu.saveliev.hautnote.feature_note.data.repository.NoteRepositoryImpl
 import eu.saveliev.hautnote.feature_note.domain.repository.NoteRepository
+import eu.saveliev.hautnote.feature_note.domain.use_case.AddNote
 import eu.saveliev.hautnote.feature_note.domain.use_case.DeleteNote
 import eu.saveliev.hautnote.feature_note.domain.use_case.GetNotes
 import eu.saveliev.hautnote.feature_note.domain.use_case.NoteUseCases
@@ -39,11 +40,9 @@ object AppModule {
     fun provideNoteUseCases(repository: NoteRepository): NoteUseCases {
         return NoteUseCases(
             getNotes = GetNotes(repository),
-            deleteNote = DeleteNote(repository)
+            deleteNote = DeleteNote(repository),
+            addNote = AddNote(repository)
         )
     }
 }
 
-//private fun Room.databaseBuilder(context: Application, klass: Class<NoteDatabase>, name: String): RoomDatabase.Builder<NoteDatabase> {
-//
-//}
