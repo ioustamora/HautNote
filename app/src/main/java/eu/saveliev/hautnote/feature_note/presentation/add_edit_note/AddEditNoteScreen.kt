@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import eu.saveliev.hautnote.feature_note.domain.model.Note
 import eu.saveliev.hautnote.feature_note.presentation.add_edit_note.components.TransparentHintTextField
+import eu.saveliev.hautnote.feature_note.presentation.notes.components.NoteIcon
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -32,6 +33,7 @@ import kotlinx.coroutines.launch
 fun AddEditNoteScreen(
     navController: NavController,
     noteColor: Int,
+    noteIcon: Int,
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
     val titleState = viewModel.noteTitle.value
@@ -118,6 +120,35 @@ fun AddEditNoteScreen(
                                 viewModel.onEvent(AddEditNoteEvent.ChangeColor(colorInt))
                             }
                     )
+                }
+                for(i in 0..10) {
+                    Box(
+                        modifier = Modifier
+                            .size(50.dp)
+                            .shadow(15.dp, CircleShape)
+                            .clip(CircleShape)
+                            .background(Color.LightGray)
+                            .border(
+                                width = 1.dp,
+                                color = if (viewModel.noteIcon.value == i) {
+                                    Color.Gray
+                                } else Color.Transparent,
+                                shape = CircleShape
+                            )
+                            .clickable {
+                                scope.launch {
+                                    noteBackgroundAnimatable.animateTo(
+                                        targetValue = Color.LightGray,
+                                        animationSpec = tween(
+                                            durationMillis = 500
+                                        )
+                                    )
+                                }
+                                viewModel.onEvent(AddEditNoteEvent.ChangeIcon(i))
+                            }
+                    ) {
+                        NoteIcon(iconInt = i)
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))

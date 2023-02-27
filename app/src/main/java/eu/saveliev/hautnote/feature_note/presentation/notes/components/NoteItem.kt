@@ -72,6 +72,7 @@ fun NoteItem(
                 .padding(16.dp)
                 .padding(end = 32.dp)
         ) {
+            NoteIcon(iconInt = note.icon)
             Text(
                 text = note.title,
                 style = MaterialTheme.typography.body1,

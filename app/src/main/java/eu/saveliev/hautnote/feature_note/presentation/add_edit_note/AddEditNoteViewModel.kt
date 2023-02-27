@@ -3,6 +3,7 @@ package eu.saveliev.hautnote.feature_note.presentation.add_edit_note
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,6 +34,9 @@ class AddEditNoteViewModel @Inject constructor(
     private  val _noteColor = mutableStateOf(Note.noteColors.random().toArgb())
     val noteColor: State<Int> = _noteColor
 
+    private  val _noteIcon = mutableStateOf(0)
+    val noteIcon: State<Int> = _noteIcon
+
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
@@ -53,6 +57,7 @@ class AddEditNoteViewModel @Inject constructor(
                             isHintVisible = false
                         )
                         _noteColor.value = note.color
+                        _noteIcon.value = note.icon
                     }
                 }
             }
@@ -86,11 +91,15 @@ class AddEditNoteViewModel @Inject constructor(
             is AddEditNoteEvent.ChangeColor -> {
                 _noteColor.value = event.color
             }
+            is AddEditNoteEvent.ChangeIcon -> {
+                _noteIcon.value = event.icon
+            }
             is AddEditNoteEvent.SaveNote -> {
                 viewModelScope.launch {
                     try {
                         noteUseCases.addNote(
                             Note(
+                                icon = noteIcon.value,
                                 title = noteTitle.value.text,
                                 content = noteContent.value.text,
                                 timestamp = System.currentTimeMillis(),

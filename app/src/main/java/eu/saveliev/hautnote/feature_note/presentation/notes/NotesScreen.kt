@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 //import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -71,7 +72,7 @@ fun NotesScreen(
                     },
                 ) {
                     Icon(
-                        imageVector = Icons.Default.List,
+                        imageVector = Icons.Default.Menu,
                         contentDescription = "Sort"
                     )
                 }
@@ -101,7 +102,7 @@ fun NotesScreen(
                             .clickable {
                                 navController.navigate(
                                     Screen.AddEditNoteScreen.route +
-                                            "?noteId=${note.id}&noteColor=${note.color}"
+                                            "?noteId=${note.id}&noteColor=${note.color}&noteIcon=${note.icon}"
                                 )
                             },
                         onDeleteClick = {
