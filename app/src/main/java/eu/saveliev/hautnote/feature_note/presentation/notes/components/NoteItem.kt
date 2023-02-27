@@ -72,13 +72,9 @@ fun NoteItem(
                 .padding(16.dp)
                 .padding(end = 32.dp)
         ) {
-            NoteIcon(iconInt = note.icon)
-            Text(
-                text = note.title,
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.onSurface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+            NoteIcon(
+                iconInt = note.icon,
+                iconBg = Color.Transparent
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(

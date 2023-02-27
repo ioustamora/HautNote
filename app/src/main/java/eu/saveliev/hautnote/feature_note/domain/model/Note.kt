@@ -11,7 +11,6 @@ import eu.saveliev.hautnote.ui.theme.*
 @Entity
 data class Note(
     val icon: Int,
-    val title: String,
     val content: String,
     val timestamp: Long,
     val color: Int,

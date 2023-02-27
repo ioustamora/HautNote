@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -36,7 +37,6 @@ fun AddEditNoteScreen(
     noteIcon: Int,
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
-    val titleState = viewModel.noteTitle.value
     val contentState = viewModel.noteContent.value
 
     val scaffoldState = rememberScaffoldState()
@@ -121,13 +121,21 @@ fun AddEditNoteScreen(
                             }
                     )
                 }
-                for(i in 0..10) {
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                for(i in 0..6) {
                     Box(
                         modifier = Modifier
-                            .size(50.dp)
-                            .shadow(15.dp, CircleShape)
+                            .size(32.dp)
+                            .shadow(12.dp, CircleShape)
                             .clip(CircleShape)
-                            .background(Color.LightGray)
+                            .background(Color.Transparent)
                             .border(
                                 width = 1.dp,
                                 color = if (viewModel.noteIcon.value == i) {
@@ -136,35 +144,17 @@ fun AddEditNoteScreen(
                                 shape = CircleShape
                             )
                             .clickable {
-                                scope.launch {
-                                    noteBackgroundAnimatable.animateTo(
-                                        targetValue = Color.LightGray,
-                                        animationSpec = tween(
-                                            durationMillis = 500
-                                        )
-                                    )
-                                }
                                 viewModel.onEvent(AddEditNoteEvent.ChangeIcon(i))
-                            }
+                            },
+                        contentAlignment = Alignment.Center
                     ) {
-                        NoteIcon(iconInt = i)
+                        NoteIcon(
+                            iconInt = i,
+                            iconBg = Color.Transparent
+                        )
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            TransparentHintTextField(
-                text = titleState.text,
-                hint = titleState.hint,
-                onValueChange = {
-                    viewModel.onEvent(AddEditNoteEvent.EnteredTitle(it))
-                },
-                onFocusChange = {
-                    viewModel.onEvent(AddEditNoteEvent.ChangeTitleFocus(it))
-                },
-                isHintVisible = titleState.isHintVisible,
-                singleLine = true,
-                textStyle = MaterialTheme.typography.h6
-            )
             Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(
                 text = contentState.text,

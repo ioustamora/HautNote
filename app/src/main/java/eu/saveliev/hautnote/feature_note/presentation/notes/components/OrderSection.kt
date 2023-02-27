@@ -20,10 +20,10 @@ fun OrderSection(
             modifier = Modifier.fillMaxWidth()
         ){
             DefaultRadioButton(
-                text = "Title",
-                selected = noteOrder is NoteOrder.Title,
+                text = "Icon",
+                selected = noteOrder is NoteOrder.Icon,
                 onSelect = {
-                    onOrderChange(NoteOrder.Title(noteOrder.orderType))
+                    onOrderChange(NoteOrder.Icon(noteOrder.orderType))
                 }
             )
             Spacer(modifier = Modifier.width(8.dp))

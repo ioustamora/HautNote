@@ -21,12 +21,12 @@ fun NoteIcon(
         1 -> Icons.Default.Home
         2 -> Icons.Default.Star
         3 -> Icons.Default.Build
-        4 -> Icons.Default.Call
+        4 -> Icons.Default.Info
         5 -> Icons.Default.Person
-        6 -> Icons.Default.Share
+        6 -> Icons.Default.Lock
         7 -> Icons.Default.Search
-        8 -> Icons.Default.Info
-        9 -> Icons.Default.Lock
+        8 -> Icons.Default.Call
+        9 -> Icons.Default.Share
         10 -> Icons.Default.Close
         else -> Icons.Default.Edit
     }

@@ -21,13 +21,9 @@ class AddEditNoteViewModel @Inject constructor(
     private  val noteUseCases: NoteUseCases,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private  val _noteTitle = mutableStateOf(NoteTextFieldState(
-        hint = "Enter title..."
-    ))
-    val noteTitle: State<NoteTextFieldState> = _noteTitle
 
     private  val _noteContent = mutableStateOf(NoteTextFieldState(
-        hint = "Enter content..."
+        hint = "enter note..."
     ))
     val noteContent: State<NoteTextFieldState> = _noteContent
 
@@ -48,10 +44,6 @@ class AddEditNoteViewModel @Inject constructor(
                 viewModelScope.launch {
                     noteUseCases.getNote(noteId)?.also { note ->
                         currentNoteId = note.id
-                        _noteTitle.value = noteTitle.value.copy(
-                            text = note.title,
-                            isHintVisible = false
-                        )
                         _noteContent.value = _noteContent.value.copy(
                             text = note.content,
                             isHintVisible = false
@@ -66,17 +58,6 @@ class AddEditNoteViewModel @Inject constructor(
 
     fun onEvent(event: AddEditNoteEvent) {
         when(event) {
-            is AddEditNoteEvent.EnteredTitle -> {
-                _noteTitle.value = noteTitle.value.copy(
-                    text = event.value
-                )
-            }
-            is AddEditNoteEvent.ChangeTitleFocus -> {
-                _noteTitle.value = noteTitle.value.copy(
-                    isHintVisible = !event.focusState.isFocused &&
-                            noteTitle.value.text.isBlank()
-                )
-            }
             is AddEditNoteEvent.EnteredContent -> {
                 _noteContent.value = _noteContent.value.copy(
                     text = event.value
@@ -100,7 +81,6 @@ class AddEditNoteViewModel @Inject constructor(
                         noteUseCases.addNote(
                             Note(
                                 icon = noteIcon.value,
-                                title = noteTitle.value.text,
                                 content = noteContent.value.text,
                                 timestamp = System.currentTimeMillis(),
                                 color = noteColor.value,
