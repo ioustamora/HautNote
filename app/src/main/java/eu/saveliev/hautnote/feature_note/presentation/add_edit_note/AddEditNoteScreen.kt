@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -67,9 +68,13 @@ fun AddEditNoteScreen(
                 onClick = {
                     viewModel.onEvent(AddEditNoteEvent.SaveNote)
                 },
-                backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = MaterialTheme.colors.onBackground
             ) {
-                Icon(imageVector = Icons.Default.Done, contentDescription = "Save note")
+                Icon(
+                    imageVector = Icons.Default.Done,
+                    contentDescription = "Save note",
+                    tint = Color.Gray
+                )
             }
         },
         scaffoldState = scaffoldState
@@ -91,15 +96,15 @@ fun AddEditNoteScreen(
                     Box(
                         modifier = Modifier
                             .size(50.dp)
-                            .shadow(15.dp, CircleShape)
-                            .clip(CircleShape)
+                            .shadow(15.dp, RectangleShape)
+                            .clip(RectangleShape)
                             .background(color)
                             .border(
-                                width = 3.dp,
+                                width = 1.dp,
                                 color = if (viewModel.noteColor.value == colorInt) {
-                                    Color.Black
+                                    Color.Gray
                                 } else Color.Transparent,
-                                shape = CircleShape
+                                shape = RectangleShape
                             )
                             .clickable {
                                 scope.launch {
@@ -127,7 +132,7 @@ fun AddEditNoteScreen(
                 },
                 isHintVisible = titleState.isHintVisible,
                 singleLine = true,
-                textStyle = MaterialTheme.typography.h5
+                textStyle = MaterialTheme.typography.h6
             )
             Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(
@@ -140,7 +145,7 @@ fun AddEditNoteScreen(
                     viewModel.onEvent(AddEditNoteEvent.ChangeContentFocus(it))
                 },
                 isHintVisible = contentState.isHintVisible,
-                textStyle = MaterialTheme.typography.body1,
+                textStyle = MaterialTheme.typography.h4,
                 modifier = Modifier.fillMaxHeight()
             )
         }
