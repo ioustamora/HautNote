@@ -9,10 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import eu.saveliev.hautnote.feature_note.data.data_source.NoteDatabase
 import eu.saveliev.hautnote.feature_note.data.repository.NoteRepositoryImpl
 import eu.saveliev.hautnote.feature_note.domain.repository.NoteRepository
-import eu.saveliev.hautnote.feature_note.domain.use_case.AddNote
-import eu.saveliev.hautnote.feature_note.domain.use_case.DeleteNote
-import eu.saveliev.hautnote.feature_note.domain.use_case.GetNotes
-import eu.saveliev.hautnote.feature_note.domain.use_case.NoteUseCases
+import eu.saveliev.hautnote.feature_note.domain.use_case.*
 import javax.inject.Singleton
 
 @Module
@@ -41,7 +38,8 @@ object AppModule {
         return NoteUseCases(
             getNotes = GetNotes(repository),
             deleteNote = DeleteNote(repository),
-            addNote = AddNote(repository)
+            addNote = AddNote(repository),
+            getNote = GetNote(repository)
         )
     }
 }

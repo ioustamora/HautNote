@@ -1,18 +1,28 @@
 package eu.saveliev.hautnote.feature_note.presentation.notes
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import eu.saveliev.hautnote.feature_note.presentation.notes.components.NoteItem
+import eu.saveliev.hautnote.feature_note.presentation.notes.components.OrderSection
+import eu.saveliev.hautnote.feature_note.presentation.util.Screen
+import kotlinx.coroutines.launch
 
+@ExperimentalAnimationApi
 @Composable
 fun NotesScreen(
     navController: NavController,
@@ -24,16 +34,17 @@ fun NotesScreen(
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                navController.navigate(Screen.AddEditNoteScreen.route)
-            },
-            backgroundColor = MaterialTheme.colors.primary
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(Screen.AddEditNoteScreen.route)
+                },
+                backgroundColor = MaterialTheme.colors.primary
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
             }
         },
         scaffoldState = scaffoldState
-    ) {
+    ) {it
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -48,21 +59,31 @@ fun NotesScreen(
                     text = "Your note",
                     style = MaterialTheme.typography.h4
                 )
-                IconButton(onClick = {
-                    viewModel.onEvent(NotesEvent.ToggleOrderSection)
-                }) {
+                IconButton(
+                    onClick = {
+                        viewModel.onEvent(NotesEvent.ToggleOrderSection)
+                    },
+                ) {
                     Icon(
-                        imageVector = Icons.Default.Star,
+                        imageVector = Icons.Default.Build,
                         contentDescription = "Sort"
                     )
                 }
             }
             AnimatedVisibility(
-                visible = state.isOrderSelectionVisible,
+                visible = state.isOrderSectionVisible,
                 enter = fadeIn() + slideInVertically(),
                 exit = fadeOut() + slideOutVertically()
             ) {
-                OrderSelection()
+                OrderSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    noteOrder = state.noteOrder,
+                    onOrderChange = {
+                        viewModel.onEvent(NotesEvent.Order(it))
+                    }
+                )
             }
             Spacer(modifier = Modifier.height(16.dp))
             LazyColumn(modifier = Modifier.fillMaxSize()) {

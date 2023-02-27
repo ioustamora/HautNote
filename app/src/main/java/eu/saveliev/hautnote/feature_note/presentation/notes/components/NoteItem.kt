@@ -1,6 +1,7 @@
 package eu.saveliev.hautnote.feature_note.presentation.notes.components
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -22,6 +23,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.toArgb
+import androidx.core.graphics.red
 
 @Composable
 fun NoteItem(
@@ -35,7 +38,9 @@ fun NoteItem(
         modifier = modifier
     ) {
         Canvas(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .matchParentSize()
+               // .background(Color(note.color))
         ) {
             val clipPath = Path().apply {
                 lineTo(size.width - cutCornerSize.toPx(), 0f)
