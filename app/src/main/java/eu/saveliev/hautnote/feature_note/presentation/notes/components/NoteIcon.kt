@@ -21,9 +21,9 @@ fun NoteIcon(
         1 -> Icons.Default.Home
         2 -> Icons.Default.Star
         3 -> Icons.Default.Build
-        4 -> Icons.Default.Info
-        5 -> Icons.Default.Person
-        6 -> Icons.Default.Lock
+        4 -> Icons.Default.Person
+        5 -> Icons.Default.Lock
+        6 -> Icons.Default.Person
         7 -> Icons.Default.Search
         8 -> Icons.Default.Call
         9 -> Icons.Default.Share

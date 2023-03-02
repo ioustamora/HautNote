@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">HautNote</string>
+    <string name="delete_note">Delete note</string>
+    <string name="save_note">Save note</string>
+    <string name="add_note">Add note</string>
+    <string name="sort">Sort</string>
+    <string name="note_deleted">Note deleted</string>
+    <string name="undo">Undo</string>
+    <string name="icon">Icon</string>
+    <string name="date">Date</string>
+    <string name="color">Color</string>
+    <string name="asc">Ascending</string>
+    <string name="desc">Descending</string>
+    <string name="enter_note">enter note…</string>
+    <string name="err_save_note">Couldn\'t save note</string>
 </resources>

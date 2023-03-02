@@ -1,13 +1,13 @@
 package eu.saveliev.hautnote.feature_note.presentation.add_edit_note
 
+import eu.saveliev.hautnote.R
+import android.content.Context
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.saveliev.hautnote.feature_note.domain.model.InvalidNoteException
 import eu.saveliev.hautnote.feature_note.domain.model.Note
 import eu.saveliev.hautnote.feature_note.domain.use_case.NoteUseCases
@@ -16,14 +16,16 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltViewModel
 class AddEditNoteViewModel @Inject constructor(
     private  val noteUseCases: NoteUseCases,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private  val _noteContent = mutableStateOf(NoteTextFieldState(
-        hint = "enter note..."
+        hint = context.getString(R.string.enter_note)
     ))
     val noteContent: State<NoteTextFieldState> = _noteContent
 
@@ -91,7 +93,7 @@ class AddEditNoteViewModel @Inject constructor(
                     } catch (e: InvalidNoteException) {
                         _eventFlow.emit(
                             UiEvent.ShowSnackbar(
-                                message = e.message ?: "Couldn't save note"
+                                message = e.message ?: context.getString(R.string.err_save_note)
                             )
                         )
                     }

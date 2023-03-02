@@ -3,9 +3,11 @@ package eu.saveliev.hautnote.feature_note.presentation.notes.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import eu.saveliev.hautnote.feature_note.domain.util.NoteOrder
 import eu.saveliev.hautnote.feature_note.domain.util.OrderType
+import eu.saveliev.hautnote.R
 
 @Composable
 fun OrderSection(
@@ -20,7 +22,7 @@ fun OrderSection(
             modifier = Modifier.fillMaxWidth()
         ){
             DefaultRadioButton(
-                text = "Icon",
+                text = stringResource(id = R.string.icon),
                 selected = noteOrder is NoteOrder.Icon,
                 onSelect = {
                     onOrderChange(NoteOrder.Icon(noteOrder.orderType))
@@ -28,7 +30,7 @@ fun OrderSection(
             )
             Spacer(modifier = Modifier.width(8.dp))
             DefaultRadioButton(
-                text = "Date",
+                text = stringResource(id = R.string.date),
                 selected = noteOrder is NoteOrder.Date,
                 onSelect = {
                     onOrderChange(NoteOrder.Date(noteOrder.orderType))
@@ -36,7 +38,7 @@ fun OrderSection(
             )
             Spacer(modifier = Modifier.width(8.dp))
             DefaultRadioButton(
-                text = "Color",
+                text = stringResource(id = R.string.color),
                 selected = noteOrder is NoteOrder.Color,
                 onSelect = {
                     onOrderChange(NoteOrder.Color(noteOrder.orderType))
@@ -48,7 +50,7 @@ fun OrderSection(
             modifier = Modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(
-                text = "Ascending",
+                text = stringResource(id = R.string.asc),
                 selected = noteOrder.orderType is OrderType.Ascending,
                 onSelect = {
                     onOrderChange(noteOrder.copy(OrderType.Ascending))
@@ -56,7 +58,7 @@ fun OrderSection(
             )
             Spacer(modifier = Modifier.width(8.dp))
             DefaultRadioButton(
-                text = "Descending",
+                text = stringResource(id = R.string.desc),
                 selected = noteOrder.orderType is OrderType.Descending,
                 onSelect = {
                     onOrderChange(noteOrder.copy(OrderType.Descending))

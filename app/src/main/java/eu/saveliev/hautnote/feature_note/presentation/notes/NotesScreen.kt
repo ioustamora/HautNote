@@ -14,9 +14,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import eu.saveliev.hautnote.R
 import eu.saveliev.hautnote.feature_note.presentation.notes.components.NoteItem
 import eu.saveliev.hautnote.feature_note.presentation.notes.components.OrderSection
 import eu.saveliev.hautnote.feature_note.presentation.util.Screen
@@ -31,6 +33,8 @@ fun NotesScreen(
     val state = viewModel.state.value
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val noteDeletedStr = stringResource(id = R.string.note_deleted)
+    val undoStr = stringResource(id = R.string.undo)
 
     Scaffold(
         floatingActionButton = {
@@ -42,7 +46,7 @@ fun NotesScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add note",
+                    contentDescription = stringResource(id = R.string.add_note),
                     tint = Color.DarkGray
                 )
             }
@@ -70,7 +74,7 @@ fun NotesScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Menu,
-                        contentDescription = "Sort"
+                        contentDescription = stringResource(id = R.string.sort)
                     )
                 }
             }
@@ -106,8 +110,8 @@ fun NotesScreen(
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
                             scope.launch {
                                 val result = scaffoldState.snackbarHostState.showSnackbar(
-                                    message = "Note deleted",
-                                    actionLabel = "Undo"
+                                    message = noteDeletedStr,
+                                    actionLabel = undoStr
                                 )
                                 if(result == SnackbarResult.ActionPerformed) {
                                     viewModel.onEvent(NotesEvent.RestoreNote)

@@ -21,9 +21,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import eu.saveliev.hautnote.R
 import eu.saveliev.hautnote.feature_note.domain.model.Note
 import eu.saveliev.hautnote.feature_note.presentation.add_edit_note.components.TransparentHintTextField
 import eu.saveliev.hautnote.feature_note.presentation.notes.components.NoteIcon
@@ -34,7 +36,7 @@ import kotlinx.coroutines.launch
 fun AddEditNoteScreen(
     navController: NavController,
     noteColor: Int,
-    noteIcon: Int,
+    //noteIcon: Int,
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
     val contentState = viewModel.noteContent.value
@@ -59,7 +61,6 @@ fun AddEditNoteScreen(
                 is AddEditNoteViewModel.UiEvent.SaveNote -> {
                     navController.navigateUp()
                 }
-                else -> {}
             }
         }
     }
@@ -74,7 +75,7 @@ fun AddEditNoteScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Done,
-                    contentDescription = "Save note",
+                    contentDescription = stringResource(R.string.save_note),
                     tint = Color.Gray
                 )
             }
@@ -129,10 +130,10 @@ fun AddEditNoteScreen(
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                for(i in 0..6) {
+                for(i in 0..5) {
                     Box(
                         modifier = Modifier
-                            .size(32.dp)
+                            .size(40.dp)
                             .shadow(12.dp, CircleShape)
                             .clip(CircleShape)
                             .background(Color.Transparent)

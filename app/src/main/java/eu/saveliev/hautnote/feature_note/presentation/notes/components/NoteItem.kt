@@ -1,7 +1,8 @@
 package eu.saveliev.hautnote.feature_note.presentation.notes.components
 
+import android.util.Base64
+import android.util.Base64.DEFAULT
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -23,8 +24,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.toArgb
-import androidx.core.graphics.red
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun NoteItem(
@@ -34,6 +34,11 @@ fun NoteItem(
     cutCornerSize: Dp = 30.dp,
     onDeleteClick: () -> Unit
 ) {
+    var noteText: String = note.content
+    if (note.icon == 5) {
+        noteText = Base64.encode(note.content.toByteArray(), DEFAULT).toString()
+    }
+
     Box(
         modifier = modifier
     ) {
@@ -78,23 +83,25 @@ fun NoteItem(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = note.content,
+                text = noteText,
                 style = MaterialTheme.typography.h6,
                 color = MaterialTheme.colors.onSurface,
                 maxLines = 10,
                 overflow = TextOverflow.Ellipsis
             )
         }
-        IconButton(
-            onClick = onDeleteClick,
-            modifier = Modifier.align(Alignment.BottomEnd)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = "Delete note",
-                tint = Color.DarkGray
-            )
-
+        if (note.icon != 2) {
+            IconButton(
+                onClick = onDeleteClick,
+                modifier = Modifier.align(Alignment.BottomEnd)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(id = eu.saveliev.hautnote.R.string
+                        .delete_note),
+                    tint = Color.Gray
+                )
+            }
         }
     }
 
