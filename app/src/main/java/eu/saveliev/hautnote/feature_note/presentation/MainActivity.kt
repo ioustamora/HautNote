@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
                             AddEditNoteScreen(
                                 navController = navController,
                                 noteColor = color,
-                                noteIcon = icon
+                                //noteIcon = icon
                             )
                         }
                     }
